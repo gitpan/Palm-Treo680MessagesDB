@@ -1,14 +1,22 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Palm-Treo680MessagesDB
-version:      1.0
-version_from: lib/Palm/Treo680MessagesDB.pm
-installdirs:  site
+--- #YAML:1.0
+name:               Palm-Treo680MessagesDB
+version:            1.01
+abstract:           ~
+author:  []
+license:            unknown
+distribution_type:  module
+configure_requires:
+    ExtUtils::MakeMaker:  0
 requires:
-    Data::Hexdumper:               0
-    DateTime:                      0.3
-    Palm::PDB:                     1.29
-    Test::More:                    0
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.30
+    Data::Hexdumper:  0
+    DateTime:         0.3
+    Palm::PDB:        1.29
+    Test::More:       0
+no_index:
+    directory:
+        - t
+        - inc
+generated_by:       ExtUtils::MakeMaker version 6.48
+meta-spec:
+    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
+    version:  1.4

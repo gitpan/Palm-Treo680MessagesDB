@@ -1,6 +1,5 @@
 ARTISTIC.txt
 CHANGES
-dodgy-offsets
 examples/treo680smsdump
 GPL2.txt
 lib/Palm/Treo680MessagesDB.pm
@@ -570,4 +569,12 @@ t/regression/99715.dd
 t/regression/99869.dd
 t/regression/database.pdb
 TODO
+lib/Palm/Treo680MessagesDBformat.pod
+t/05_mms.t
+t/mms/ms-012.40.1232940.pdr
+t/mms/ms-013.40.1232941.pdr
+t/mms/ms-014.40.1232942.pdr
+t/mms/ms.dd
+t/michal-seliga-emails.txt
+t/mms/incomplete.dd
 META.yml                                 Module meta-data (added by MakeMaker)

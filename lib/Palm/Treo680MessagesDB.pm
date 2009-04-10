@@ -1,4 +1,4 @@
-# $Id: Treo680MessagesDB.pm,v 1.11 2008/07/10 14:07:26 drhyde Exp $
+# $Id: Treo680MessagesDB.pm,v 1.15 2008/07/22 16:40:07 drhyde Exp $
 
 package Palm::Treo680MessagesDB;
 
@@ -9,13 +9,15 @@ use Palm::Raw();
 use DateTime;
 use Data::Hexdumper ();
 
-use vars qw($VERSION @ISA $timezone $incl_raw $debug);
+use vars qw($VERSION @ISA $timezone $incl_raw $debug $multipart);
 
-$VERSION = '1.0';
+$VERSION = '1.01';
 @ISA = qw(Palm::Raw);
 $timezone = 'Europe/London';
 $debug = 0;
 $incl_raw = 0;
+
+$multipart = {};
 
 sub import {
     my $class = shift;
@@ -187,12 +189,17 @@ sub _parseblob {
                  0x100     * ord(substr($epoch, 2, 1)) +
                              ord(substr($epoch, 3, 1)) -
                  2082844800; # offset from Palm epoch (1904) to Unix
-        my $dt = DateTime->from_epoch(
-            epoch => $record{epoch},
-            time_zone => $timezone
-        );
-        $record{date} = sprintf('%04d-%02d-%02d', $dt->year(), $dt->month(), $dt->day());
-        $record{time} = sprintf('%02d:%02d', $dt->hour(), $dt->minute());
+
+        # if is because DateTime::from_epoch seems to DTwrongT on Win32
+        # when you get a negative epoch
+        if($record{epoch} > 0) {
+            my $dt = DateTime->from_epoch(
+                epoch => $record{epoch},
+                time_zone => $timezone
+            );
+            $record{date} = sprintf('%04d-%02d-%02d', $dt->year(), $dt->month(), $dt->day());
+            $record{time} = sprintf('%02d:%02d', $dt->hour(), $dt->minute());
+        }
     } elsif($type == 0x0002) {
         $dir = 'outbound';
 
@@ -386,9 +393,9 @@ L<Palm::PDB>
 
 L<DateTime>
 
-=head1 AUTHOR
+=head1 THANKS TO
 
-David Cantrell E<lt>F<david@cantrell.org.uk>E<gt>
+Michal Seliga, for sample MMS data
 
 =head1 AUTHOR, COPYRIGHT and LICENCE
 
